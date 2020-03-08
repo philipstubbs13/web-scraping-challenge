@@ -3,6 +3,9 @@ from splinter import Browser
 from bs4 import BeautifulSoup as bs
 import time
 import pandas as pd
+from pprint import pprint
+import warnings
+warnings.filterwarnings('ignore')
 
 def init_browser():
     executable_path = {"executable_path": "chromedriver.exe"}
@@ -19,6 +22,7 @@ def scrape():
   url = "https://mars.nasa.gov/news/?page=0&per_page=40&order=publish_date+desc%2Ccreated_at+desc&search=&category=19%2C165%2C184%2C204&blank_scope=Latest"
   browser.visit(url)
 
+  # Wait for the page/page elements to load.
   time.sleep(1)
 
   # Scrape page into soup.
@@ -26,13 +30,14 @@ def scrape():
   soup = bs(html, "html.parser")
 
   # Get latest news title and paragraph text.
-  news_title = soup.find_all('div', class_='content_title')[0].text
+  news_title = soup.find_all('div', class_='content_title')[1].text
   news_p = soup.find_all('div', class_="article_teaser_body")[0].text
   print(f"Latest news title: {news_title}.")
   print(f"Latest news paragraph text: {news_p}")
 
 
   # JPL Mars Space Images - Featured Image
+  # Visit the url for JPL Featured Space Image.
   # Use splinter to navigate the site and find the image url for the current featured Mars image.
   # Assign the url string to a variable called featured_image_url.
   # Make sure to find the image url to the full size .jpg image.
@@ -42,6 +47,7 @@ def scrape():
   url = "https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars"
   browser.visit(url)
 
+  # Wait for page/page elements to load.
   time.sleep(1)
 
   # Scrape page into soup.
@@ -50,9 +56,7 @@ def scrape():
 
   # Get image url for featured image.
   featured_image_base_url = "https://www.jpl.nasa.gov"
-  featured_image_url_style = soup.find('article', class_="carousel_item")["style"]
-  url_list = featured_image_url_style.split("'")
-  featured_image_relative_path = url_list[1]
+  featured_image_relative_path = soup.find('li', class_='slide').a['data-fancybox-href']
   featured_image_url = featured_image_base_url + featured_image_relative_path
   print(f"Featured image url: {featured_image_url}")
 
@@ -60,9 +64,11 @@ def scrape():
   # Mars Weather
   # Visit the Mars Weather twitter account [here](https://twitter.com/marswxreport?lang=en) and scrape the latest Mars weather tweet from the page. Save the tweet text for the weather report as a variable called mars_weather.
 
+  # Visit the Mars Weather twitter account.
   url = "https://twitter.com/marswxreport?lang=en"
   browser.visit(url)
 
+  # Wait for the page/page elements to load.
   time.sleep(8)
 
   # Scrape page into soup.
@@ -88,6 +94,7 @@ def scrape():
   url = "https://space-facts.com/mars/"
   browser.visit(url)
 
+  # Wait for page/page elements to load.
   time.sleep(1)
 
   # Scrape page into soup.
@@ -112,7 +119,7 @@ def scrape():
   html_table.replace('\n', '')
 
   # Save the html string to a file.
-  df.to_html('mars_facts_table.html')
+  df.to_html('./templates/mars_facts_table.html')
 
 
   # Mars Hemispheres
@@ -126,6 +133,7 @@ def scrape():
   hemisphere_list_url = base_url + "/search/results?q=hemisphere+enhanced&k1=target&v1=Mars"
   browser.visit(hemisphere_list_url)
 
+  # Wait for the page/page elements to load.
   time.sleep(1)
 
   # Scrape page into soup.
@@ -149,7 +157,7 @@ def scrape():
       hemisphere_image_urls.append(hemisphere_dict)
       browser.back()
       
-  print(hemisphere_image_urls)
+  pprint(hemisphere_image_urls)
 
   scraped_data = {
     "news_title": news_title,
@@ -160,5 +168,6 @@ def scrape():
     "featured_image_url": featured_image_url
   }
   print(scraped_data)
+  browser.quit()
   return scraped_data
 
