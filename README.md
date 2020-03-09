@@ -9,7 +9,7 @@ A web application that scrapes various websites for data related to Mars and dis
 
 ## <a name="scraping"></a> Scraping
 
-The [mission_to_mars.ipynb](./mission_to_mars.ipynb) Jupyter notebook file contains all of the scraping code. I used BeautifulSoup, Pandas, and Requests/Splinter to scrape the following information about Mars from the following websites:
+The [mission_to_mars.ipynb](./Missions_to_Mars/mission_to_mars.ipynb) Jupyter notebook file contains all of the scraping code. I used BeautifulSoup, Pandas, and Requests/Splinter to scrape the following information about Mars from the following websites:
 
 * [NASA Mars News](https://mars.nasa.gov/news/)
   * Scraped the latest news title and paragraph text.
