@@ -9,7 +9,7 @@ A web application that scrapes various websites for data related to Mars and dis
 
 ## <a name="scraping"></a> Scraping
 
-The [mission_to_mars.ipynb](./Missions_to_Mars/mission_to_mars.ipynb) Jupyter notebook file contains all of the scraping code. I used BeautifulSoup, Pandas, and Requests/Splinter to scrape the following information about Mars from the following websites:
+The [mission_to_mars.ipynb](./Missions_to_Mars/mission_to_mars.ipynb) Jupyter notebook file contains all of the scraping code for this application. Specifically, I used BeautifulSoup, Pandas, and Requests/Splinter to scrape the following information about Mars from the following websites:
 
 * [NASA Mars News](https://mars.nasa.gov/news/)
   * Scraped the latest news title and paragraph text.
@@ -18,13 +18,13 @@ The [mission_to_mars.ipynb](./Missions_to_Mars/mission_to_mars.ipynb) Jupyter no
 * [Mars Weather Twitter Account](https://twitter.com/marswxreport?lang=en)
   * Scraped the latest Mars weather tweet from the page.
 * [Mars Facts Website](https://space-facts.com/mars/)
-  * Scraped the table containing facts about the planet and used Pandas to convert the data to a HTML table string.
+  * Scraped the table containing facts about the planet. Then, used Pandas to convert the data to a HTML table string.
 * [USGS Astrogeology Website](https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars)
   * Scraped the name and image url for each of Mar's hemispheres and used a Python dictionary to store the data using the keys ```img_url``` and ```title```. Then, appended the dictionary with the image url string and the hemisphere title to a list. This list contains one dictionary for each hemisphere.
 
 ## <a name="app"></a> MongDB and Flask Application
 
-After scraping the various sites, I used MongoDB with Flask templating to create a new HTML page that displays all of the information that was scraped from the URLs above.
+After scraping the various sites for the information needed for the application, I used MongoDB with Flask templating to create a new HTML page that displays all of the information that was scraped from the URLs above.
 
 To do this, I did the following:
 
