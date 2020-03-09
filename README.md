@@ -29,7 +29,7 @@ After scraping the various sites, I used MongoDB with Flask templating to create
 To do this, I did the following:
 
 * Converted the [Jupyter notebook](./Missions_to_Mars/mission_to_mars.ipynb) into a Python script called [scrape_mars.py](./Missions_to_Mars/scrape_mars.py) with a function called ```scrape```, which executes all of the scraping code from above and returns one Python dictionary containing all of the scraped data.
-* Created a route called ```/scrape```, which imports the [scrape_mars.py](./missions_to_Mars/scrape_mars.py) script and calls the scrape function.
+* Created a route called ```/scrape```, which imports the [scrape_mars.py](./Missions_to_Mars/scrape_mars.py) script and calls the scrape function.
 * Created a root route ```/```, which queries the Mongo database and passes the mars data into an HTML template to display the data.
 * Created a template HTML file called [index.html](./Missions_to_Mars/templates/index.html) that takes the mars data dictionary and displays all of the data in the appropriate HTML elements.
 
